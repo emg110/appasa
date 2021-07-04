@@ -13,6 +13,7 @@ set -o pipefail
 export SHELLOPTS
 #set -x
 set -e
+bashuppercli="../"
 goalcli="../sandbox/sandbox goal"
 tealdbgcli="../sandbox/sandbox tealdbg"
 sandboxcli="../sandbox/sandbox"
@@ -126,9 +127,12 @@ echo "Sending signed transaction group with clerk..."
 ${goalcli} clerk rawsend -f trx-group-asa-signed.tx
 rm -f *.tx
 rm -f *.rej
-rm -f awk.*
-rm -f head.*
+rm -f awk
+rm -f head
 rm -f *.scratch
+rm -f *.trt
+rm -f *.json
+rm -f sed
 ;;
 dryrun)
 echo "Dry running signed transaction group"
@@ -168,26 +172,18 @@ echo "Transfering one unit of AppASA with clerk"
 ${goalcli} clerk rawsend -f trx-group-asa-transfer-signed.tx 
 rm -f *.tx
 rm -f *.rej
-rm -f awk.*
-rm -f head.*
+rm -f awk
+rm -f head
 rm -f *.scratch
+rm -f *.trt
+rm -f *.json
+rm -f sed
 ;;
 trxlist)
 echo "listing transactions..."
 curl "localhost:8980/v2/transactions?pretty"
 ;;
-reset)
-echo "Reseting sandbox environment"
-$sandboxcli reset
-;;
-stop)
-echo "Stopping sandbox environment"
-$sandboxcli down
-;;
-stop)
-echo "Starting sandbox environment"
-$sandboxcli up
-;;
+
 status)
 echo "Getting node status from goal..."
 ${goalcli}  node status

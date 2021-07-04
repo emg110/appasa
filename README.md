@@ -3,12 +3,18 @@
 AppASA repository contains bounty solution plus educational code & content in response to  [Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset](https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)
 
 ## Author
-@emg110
+
+[@emg110 ](https://github.com/emg110)
+
+Hi! MG here! 
+
+## Thanks and appreciations
+Many many thanks to Jason, Ryan, Russ, Fabrice and all Algoprand & Algorand Foundation team for being willing, welcoming, accepting and guiding. Special thanks to Algorand foundation GitCoin bounties admins and moderators for doing a very brave and fruiteful job while being responsive and helpful to participants all the time. 
 
 ## What does this demo do
 This is very simple yet very powerful demo tool built using pure bash script, goal beautiful command line and TEAL (No SDK used) to serve the purpose of providing a solution to bounty above but in an elegant way to be extendible and re-usable in future for Algorand developers using GOAL and TEAL.
 
-## What is exciting AppASA
+## What is exciting about this AppASA solution
 - Full automatic beautifull command line to experience the power of Algorand in a classy way.
 
 

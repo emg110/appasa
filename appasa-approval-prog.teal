@@ -1,0 +1,122 @@
+#pragma version 4
+txn GroupIndex
+int 0
+==
+txn OnCompletion
+int DeleteApplication
+==
+bnz finerr
+txn OnCompletion
+int UpdateApplication
+==
+bnz finerr
+txn OnCompletion
+int CloseOut
+==
+bnz finerr
+txn OnCompletion
+int OptIn
+==
+bnz finerr
+txn ApplicationID
+bz end
+txna ApplicationArgs 0
+byte "escrow_set"
+==
+bnz esb
+txna ApplicationArgs 0
+byte "asa_gen"
+==
+bnz bgen
+txna ApplicationArgs 0
+byte "asa-xfer"
+==
+bnz bxfer
+err
+
+
+esb:
+txn Sender
+global CreatorAddress
+==
+assert
+byte "acc"
+txna ApplicationArgs 1
+app_global_put
+int 1
+&&
+b end
+
+
+bgen:
+global GroupSize
+int 2
+==
+assert
+gtxn 1 Sender
+byte "acc"
+app_global_get
+==
+assert
+byte "iter"
+app_global_get
+int 10
+%
+store 0
+gtxn 1 TypeEnum
+int acfg
+==
+gtxn 1 ConfigAssetName
+byte "AppASA-"
+byte "0123456789"
+load 0
+load 0
+int 1
++
+substring3
+concat
+==
+&&
+assert
+byte "iter"
+byte "iter"
+app_global_get
+int 1
++
+app_global_put
+int 1
+&&
+b end
+
+
+bxfer:
+global GroupSize
+int 2
+==
+assert
+gtxn 1 Sender
+byte "acc"
+app_global_get
+==
+assert
+int 1
+&&
+b end
+
+
+finerr:
+err
+end:
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -79,7 +79,7 @@ concat
 &&
 assert
 byte "iter"
-byte "iter"
+dup
 app_global_get
 int 1
 +

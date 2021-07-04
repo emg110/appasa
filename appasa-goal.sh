@@ -11,13 +11,14 @@ echo "--------------------------------------------------------------------------
 echo "                       "
 set -o pipefail
 export SHELLOPTS
-#set -x
 set -e
+#set -x
+
 bashuppercli="../"
 goalcli="../sandbox/sandbox goal"
 tealdbgcli="../sandbox/sandbox tealdbg"
 sandboxcli="../sandbox/sandbox"
-ACC=$(${goalcli} account list|awk '{ print $3 }'|tail -1)
+ACC=$( ${goalcli} account list | awk '{ print $3 }' | tail -1)
 APPROVAL_PROG="appasa-approval-prog.teal"
 CLEAR_PROG="appasa-clear-prog.teal"
 ESCROW_PROG="appasa-escrow-prog.teal"

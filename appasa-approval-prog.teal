@@ -70,7 +70,7 @@ gtxn 1 ConfigAssetName
 byte "AppASA-"
 byte "0123456789"
 load 0
-load 0
+dup
 int 1
 +
 substring3

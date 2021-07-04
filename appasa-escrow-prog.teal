@@ -22,7 +22,7 @@ assert
 gtxna 0 ApplicationArgs 0
 byte "asa_gen"
 ==
-bnz acfg
+bnz bacfg
 gtxna 0 ApplicationArgs 0
 byte "asa-xfer"
 ==
@@ -47,7 +47,7 @@ global ZeroAddress
 assert
 int 1
 b fin
-acfg:
+bacfg:
 txn TypeEnum
 int acfg
 ==

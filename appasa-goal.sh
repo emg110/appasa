@@ -30,6 +30,11 @@ echo "Algorand Sandbox installed in parent folder (Beside current folder)"
 ;;
 reset)
 echo "Reseting sandbox environment"
+rm -f appasa-asset-index.txt
+rm -f appasa-id.txt
+rm -f appasa-escrow-prog-snd.txt
+rm -f appasa-escrow-account.txt
+rm -f appasa-main-account.txt
 $sandboxcli reset
 ;;
 stop)

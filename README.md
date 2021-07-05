@@ -6,7 +6,11 @@ AppASA repository contains bounty solution plus educational code & content in re
 
 [@emg110 ](https://github.com/emg110)
 
-Hi! MG here! 
+Hi! MG here!
+
+## Technical notes
+
+#### This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (inside sandbox's upper parent folder).
 
 ## Thanks and appreciations
 Many many thanks to Jason, Ryan, Russ, Fabrice and all Algoprand & Algorand Foundation team for being willing, welcoming, accepting and guiding. Special thanks to Algorand foundation GitCoin bounties admins and moderators for doing a very brave and fruiteful job while being responsive and helpful to participants all the time. 
@@ -58,7 +62,7 @@ That's it! Happy Algoranding using AppASA
 
 - If you have sandbox installed , install this repo beside the sandbox folder in your workspace please. if not, no worries! start from this repo you have it covered. Afer cloning start and :
 
-#### Common utilities
+#### Sandbox utilities
 - For help, Run the bash script help command:
 
 `./appasa-goal.sh help` 
@@ -79,9 +83,34 @@ That's it! Happy Algoranding using AppASA
 
 `./appasa-goal.sh reset` 
 
+
+#### Node utilities
+
 - For node status :
 
 `./appasa-goal.sh status` 
+
+- For list of transactions on node from indexer:
+
+`./appasa-goal.sh trxlist` 
+
+- To check info on main account:
+
+`./appasa-goal.sh main` 
+
+- To check info on escrow account:
+
+`./appasa-goal.sh escrow` 
+
+- To check balance on main account:
+
+`./appasa-goal.sh mainbal` 
+
+- To check info on escrow account:
+
+`./appasa-goal.sh escrowbal` 
+
+
 
 #### AppASA Solution Demo Process
 

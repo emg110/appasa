@@ -114,6 +114,24 @@ ${goalcli} app read --app-id ${APP_ID_TRIM} --guess-format --global --from ${MAI
 ;;
 asa)
 echo "Generating Standard Asset..."
+ASSET_INDEX=0
+if [ $2 = "auto" ]; then
+  if [[ -f "appasa-asset-index.txt" ]]; then
+    ASSET_INDEX_STR=$(cat "appasa-asset-index.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
+    ASSET_INDEX_STR_TRIM="${APP_ID//$'\r'/ }"
+    ASSET_INDEX="$((ASSET_INDEX_STR_TRIM + 1))"
+    echo "Auto AppASA index (counter) setting selected! Previous index found: ${ASSET_INDEX}"
+    echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt"
+  else
+    echo "Auto AppASA index (counter) setting selected! Previous index not found: AppASA index counter set to 0"
+    echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt"
+  fi
+else
+    echo "Manual counting mode selected! AppASA index counter set to ${2}"
+    ASSET_INDEX= $2
+    echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt" 
+fi
+
 MAIN_ACC=$(<appasa-main-account.txt)
 ESCROW_ACC=$(cat "appasa-escrow-account.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
 ESCROW_ACC_TRIM="${ESCROW_ACC//$'\r'/ }"
@@ -123,10 +141,10 @@ ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
 $sandboxcli copyTo "$ESCROW_PROG_SND"
 echo "Escrow account: $ESCROW_ACC_TRIM"
 echo "Application ID:$APP_ID_TRIM"
-echo "The asset name (AppASA-x) counter (x): $2"
+echo "The asset name (AppASA-x) counter (x):$ASSET_INDEX x: AppASA-$ASSET_INDEX"
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_gen" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx
 $sandboxcli copyFrom "trx-call-app-unsigned.tx"
-${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-${2}" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
+${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-${ASSET_INDEX}" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
 $sandboxcli copyFrom "trx-create-asa-unsigned.tx"
 cat trx-call-app-unsigned.tx trx-create-asa-unsigned.tx > trx-array-asa-unsigned.tx
 $sandboxcli copyTo "trx-array-asa-unsigned.tx"
@@ -158,22 +176,35 @@ ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-as
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
 ;;
 axfer)
+ASSET_ID=0
+
 echo "Receiving Standard Asset..."
 MAIN_ACC=$(<appasa-main-account.txt)
 ESCROW_ACC=$(cat "appasa-escrow-account.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
 ESCROW_ACC_TRIM="${ESCROW_ACC//$'\r'/ }"
 APP_ID=$(cat "appasa-id.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
 APP_ID_TRIM="${APP_ID//$'\r'/ }"
+
+
+if [ $2 = "auto" ]; then
+    ASSET_ID=$(${goalcli} account info -a ${ESCROW_ACC_TRIM} | grep ID | head -n 1 | awk '{ print $2 }')
+    echo "The Asset ID selected by auto mode is: ${ASSET_ID%?}"
+else
+    
+    ASSET_ID= $2
+    echo "Manual asset ID entering mode selected! Asset ID in request to be transfered (one unit only) ${ASSET_ID%?}"
+    echo -ne "${ASSET_ID%?}" > "appasa-asset-index.txt" 
+fi
+
 echo "Escrow account: $ESCROW_ACC_TRIM"
 echo "Application ID:$APP_ID_TRIM"
-echo "The asset ID from which 1 (one) unit will be transfered to main account: $2"
-#ASSET_INDEX=$(${goalcli} account info -a ${ESCROW_ACC_TRIM} | grep ID | head -n 1 | awk '{ print $2 }')
-#echo ${ASSET_INDEX%?}
+echo "The asset ID from which 1 (one) unit will be transfered to main account: ${ASSET_ID%?}"
+
 ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
-${goalcli} asset send --assetid ${2} -f ${MAIN_ACC} -t ${MAIN_ACC} -a 0
+${goalcli} asset send --assetid ${ASSET_ID%?} -f ${MAIN_ACC} -t ${MAIN_ACC} -a 0
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa-xfer" -f ${MAIN_ACC} -o trx-get-asa-unsigned.tx
 $sandboxcli copyFrom "trx-get-asa-unsigned.tx"
-${goalcli} asset send --assetid ${2} -f ${ESCROW_ACC_TRIM} -t ${MAIN_ACC} -a 1 -o trx-send-asa-unsigned.tx
+${goalcli} asset send --assetid ${ASSET_ID%?} -f ${ESCROW_ACC_TRIM} -t ${MAIN_ACC} -a 1 -o trx-send-asa-unsigned.tx
 $sandboxcli copyFrom "trx-send-asa-unsigned.tx"
 cat trx-get-asa-unsigned.tx trx-send-asa-unsigned.tx > trx-array-asa-transfer-unsigned.tx
 $sandboxcli copyTo "trx-array-asa-transfer-unsigned.tx"
@@ -207,7 +238,7 @@ echo "Getting node status from goal..."
 ${goalcli}  node status
 ;;
 help)
-echo "Welcome To @emg110 demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "@emg110 demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
 echo "                "
 echo "Step by step process flow:"
 echo "                "
@@ -220,16 +251,50 @@ echo "                "
 echo "3- ./appasa-goal.sh link"
 echo "To link stateful contract application with stateless contract escrow account" 
 echo "                "
-echo "4- ./appasa-goal.sh asa INDEX"
-echo "To generate standard asset with counter INDEX (e.g 0)" 
+echo "4- ./appasa-goal.sh asa 'INDEX' or 'auto'"
+echo "To generate standard asset with counter INDEX (e.g 0). set 'auto' to make everything automated" 
 echo "                "
-echo "5- ./appasa-goal.sh axfer ID"
-echo "To transfer (receive) one unit of standard asset with  ID (e.g 5)" 
+echo "5- ./appasa-goal.sh escrow"
+echo "To check the assets generated in previous level under the escrow account info (Use this in next step if going to do it manual!)" 
 echo "                "
 echo "                "
+echo "6- ./appasa-goal.sh axfer 'ID' or 'auto'"
+echo "To transfer (receive) one unit of standard asset with ID (e.g 5). set 'auto' to make everything automated" 
+echo "                "
+echo " -------------------------------------------------               "
+echo "Sandbox commands:"
+echo "                "
+echo "./appasa-goal.sh install" 
+echo "Installs the sandbox instance" 
+echo "                "
+echo "./appasa-goal.sh reset"
+echo "Resets the sandbox instance" 
+echo "                "
+echo "./appasa-goal.sh start"
+echo "Starts the sandbox instance" 
+echo "                "
+echo "./appasa-goal.sh stop"
+echo "Stops the sandbox instance" 
+echo "                "
+echo "--------------------------------------------------             "
+echo "Other usefull commands:"
+echo "                "
+echo "./appasa-goal.sh main" 
+echo "Show main account's info" 
+echo "                "
+echo "./appasa-goal.sh escrow"
+echo "Show generated escrow account's info" 
+echo "                "
+echo "./appasa-goal.sh mainbal"
+echo "Show main account's balance" 
+echo "                "
+echo "./appasa-goal.sh escrowbal"
+echo "Show generated escrow account's balance" 
+echo "                "
+
 ;;
 *)
-echo "Welcome To @emg110 demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
-echo "This repository contains educational code & content in response to Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset (https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)"
+echo "Welcome To @emg110 (Hi, MG here!) demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content in response to Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset (https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)"
 ;;
 esac

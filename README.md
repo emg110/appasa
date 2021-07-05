@@ -1,6 +1,7 @@
 <img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-banner.png">
-# AppASA: algorand-gitcoin-bounty-appasa
-AppASA repository contains bounty solution plus educational code & content in response to  [Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset](https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)
+
+# AppASA algorand-gitcoin-bounty-appasa
+AppASA repository contains bounty solution plus educational code & content (DO NOT USE DIRECTLY IN PRODUCTION or MAINNET) in response to  [Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset](https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)
 
 ## Author
 

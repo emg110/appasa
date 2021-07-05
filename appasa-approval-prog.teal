@@ -25,14 +25,14 @@ byte "escrow_set"
 ==
 bnz esb
 txna ApplicationArgs 0
-byte "asa_gen"
+byte "asa_cfg"
 ==
 bnz bgen
 txna ApplicationArgs 0
 byte "asa-xfer"
 ==
 bnz bxfer
-err
+b finerr
 
 
 esb:
@@ -112,16 +112,3 @@ b end
 finerr:
 err
 end:
-
-
-
-
-
-
-
-
-
-
-
-
-

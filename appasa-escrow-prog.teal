@@ -1,4 +1,33 @@
 #pragma version 4
+b checks
+
+baxfer:
+txn AssetCloseTo
+global ZeroAddress
+==
+txn AssetAmount
+int 1
+==
+&&
+assert
+txn TypeEnum
+int axfer
+==
+txn AssetSender
+global ZeroAddress
+==
+&&
+assert
+int 1
+b fin
+
+bacfg:
+txn TypeEnum
+int acfg
+==
+b fin
+
+checks:
 gtxn 0 ApplicationID
 int appIdParam
 ==
@@ -20,7 +49,7 @@ global MinTxnFee
 <=
 assert
 gtxna 0 ApplicationArgs 0
-byte "asa_gen"
+byte "asa_cfg"
 ==
 bnz bacfg
 gtxna 0 ApplicationArgs 0
@@ -28,27 +57,5 @@ byte "asa-xfer"
 ==
 bnz baxfer
 err
-baxfer:
-txn AssetCloseTo
-global ZeroAddress
-==
-txn AssetAmount
-int 1
-==
-&&
-assert
-txn TypeEnum
-int axfer
-==
-txn AssetSender
-global ZeroAddress
-==
-&&
-assert
-int 1
-b fin
-bacfg:
-txn TypeEnum
-int acfg
-==
+
 fin:

@@ -27,7 +27,7 @@ bnz esb
 txna ApplicationArgs 0
 byte "asa_cfg"
 ==
-bnz bgen
+bnz bacfg
 txna ApplicationArgs 0
 byte "asa-xfer"
 ==
@@ -47,7 +47,7 @@ int 1
 &&
 b end
 
-bgencheck:
+bacfgcheck:
 global GroupSize
 int 2
 ==
@@ -60,8 +60,8 @@ assert
 retsub
 
 
-bgen:
-callsub bgencheck
+bacfg:
+callsub bacfgcheck
 return
 byte "iter"
 app_global_get

@@ -116,19 +116,26 @@ asa)
 echo "Generating Standard Asset..."
 ASSET_INDEX=0
 if [ $2 = "auto" ]; then
+  echo "Auto mode selected..."
   if [[ -f "appasa-asset-index.txt" ]]; then
+    echo "File found..."
     ASSET_INDEX_STR=$(cat "appasa-asset-index.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
     ASSET_INDEX_STR_TRIM="${APP_ID//$'\r'/ }"
-    ASSET_INDEX="$((ASSET_INDEX_STR_TRIM + 1))"
+
+    ASSET_INDEX="$((ASSET_INDEX + 1))"
+
     echo "Auto AppASA index (counter) setting selected! Previous index found: ${ASSET_INDEX}"
+    rm -f appasa-asset-index.txt
     echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt"
   else
+  echo "File not found..."
     echo "Auto AppASA index (counter) setting selected! Previous index not found: AppASA index counter set to 0"
     echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt"
   fi
 else
     echo "Manual counting mode selected! AppASA index counter set to ${2}"
     ASSET_INDEX= $2
+    ASSET_INDEX="$((ASSET_INDEX + 1))"
     echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt" 
 fi
 
@@ -142,7 +149,7 @@ $sandboxcli copyTo "$ESCROW_PROG_SND"
 echo "Escrow account: $ESCROW_ACC_TRIM"
 echo "Application ID:$APP_ID_TRIM"
 echo "The asset name (AppASA-x) counter (x):$ASSET_INDEX x: AppASA-$ASSET_INDEX"
-${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_gen" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx
+${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_cfg" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx
 $sandboxcli copyFrom "trx-call-app-unsigned.tx"
 ${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-${ASSET_INDEX}" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
 $sandboxcli copyFrom "trx-create-asa-unsigned.tx"
@@ -166,7 +173,6 @@ rm -f *.rej
 rm -f awk
 rm -f head
 rm -f *.scratch
-rm -f *.trt
 rm -f *.json
 rm -f sed
 ;;
@@ -224,7 +230,6 @@ rm -f *.rej
 rm -f awk
 rm -f head
 rm -f *.scratch
-rm -f *.trt
 rm -f *.json
 rm -f sed
 ;;

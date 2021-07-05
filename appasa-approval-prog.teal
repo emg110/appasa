@@ -23,7 +23,7 @@ bz end
 txna ApplicationArgs 0
 byte "escrow_set"
 ==
-bnz esb
+bnz bescset
 txna ApplicationArgs 0
 byte "asa_cfg"
 ==
@@ -35,7 +35,7 @@ bnz bxfer
 b finerr
 
 
-esb:
+bescset:
 txn Sender
 global CreatorAddress
 ==

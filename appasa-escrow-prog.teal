@@ -1,5 +1,5 @@
 #pragma version 4
-b checks
+b bacheck
 
 baxfer:
 txn AssetCloseTo
@@ -27,7 +27,7 @@ int acfg
 ==
 b fin
 
-checks:
+bacheck:
 gtxn 0 ApplicationID
 int appIdParam
 ==

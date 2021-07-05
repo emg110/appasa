@@ -17,19 +17,17 @@ Hi! MG here!
 Many many thanks to Jason, Ryan, Russ, Fabrice and all Algoprand & Algorand Foundation team for being willing, welcoming, accepting and guiding. Special thanks to Algorand foundation GitCoin bounties admins and moderators for doing a very brave and fruiteful job while being responsive and helpful to participants all the time. 
 
 ## What does this demo do
-This is very simple yet very powerful demo tool built using pure bash script, goal beautiful command line and TEAL (No SDK used) to serve the purpose of providing a solution to bounty above but in an elegant way to be extendible and re-usable in future for Algorand developers using GOAL and TEAL.
+This is very simple yet very powerful demo tool built using pure bash script, goal beautiful command line and TEAL 4 (No SDK used) to serve the purpose of providing a solution to bounty above but in an elegant way to be extendible and re-usable in future for Algorand developers using GOAL and TEAL 4.
 
 ## What is exciting about this AppASA solution
 - Full automatic beautifull command line to experience the power of Algorand in a classy way.
 
 
-- TEAL is parametrized in this solution demo and APPLICATION ID is dymically set for smart contract before compile and therefore the process and the whole solution demo does not any manual settings or values or even default values per say(The only default values are those demanded by the bounty description e.g. only one unit of AppASA-x would be transfered to any requesting party).
+- TEAL is parametrized in this solution demo implementation and APPLICATION ID is dymically set for smart contract before compile and therefore the process and the whole solution demo does not any manual settings or values or even default values per say(The only default values are those demanded by the bounty description e.g. only one unit of AppASA-x would be transfered to any requesting party).
 
 
 - It's on sandbox! This entire demo works on [Algorand Sandbox](https://gtihub.com/algorand/sandbox).
 
-
-- I worked all of this solution on a remote Ubuntu Server with no debugging (ports were limited) so , it's been made some sort of stone age conditions but works very 21th century style!
 
 ## How to use AppASA
 Easily under 10 seconds you can get AppASA solution demo up & running because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!

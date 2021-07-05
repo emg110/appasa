@@ -46,12 +46,9 @@ global ZeroAddress
 &&
 assert
 int 1
-b end
+b fin
 bacfg:
 txn TypeEnum
 int acfg
 ==
-
-finerr:
-err
-end:
+fin:

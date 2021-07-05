@@ -47,8 +47,7 @@ int 1
 &&
 b end
 
-
-bgen:
+bgencheck:
 global GroupSize
 int 2
 ==
@@ -58,6 +57,12 @@ byte "acc"
 app_global_get
 ==
 assert
+retsub
+
+
+bgen:
+callsub bgencheck
+return
 byte "iter"
 app_global_get
 int 10

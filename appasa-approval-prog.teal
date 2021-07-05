@@ -32,7 +32,7 @@ txna ApplicationArgs 0
 byte "asa-xfer"
 ==
 bnz bxfer
-err
+b finerr
 
 
 esb:

@@ -23,6 +23,23 @@ APPROVAL_PROG="appasa-approval-prog.teal"
 CLEAR_PROG="appasa-clear-prog.teal"
 ESCROW_PROG="appasa-escrow-prog.teal"
 case $1 in
+install)
+echo "Installing sandbox environment"
+$bashuppercli git clone https://github.com/algorand/sandbox
+echo "Algorand Sandbox installed in parent folder (Beside current folder)"
+;;
+reset)
+echo "Reseting sandbox environment"
+$sandboxcli reset
+;;
+stop)
+echo "Stopping sandbox environment"
+$sandboxcli down
+;;
+start)
+echo "Starting sandbox environment"
+$sandboxcli up
+;;
 asc)
 cp "$APPROVAL_PROG" "$CLEAR_PROG" ../sandbox
 $sandboxcli copyTo "$APPROVAL_PROG"

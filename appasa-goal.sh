@@ -107,8 +107,8 @@ ESCROW_ACC_TRIMM="${ESCROW_ACC//$'\n'/ }"
 APP_ID=$(cat "appasa-id.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
 APP_ID_TRIM="${APP_ID//$'\r'/ }"
 echo "Escrow account: $ESCROW_ACC_TRIMM"
-echo "Application ID:$APP_ID_TRIM"
 echo "Main account:$MAIN_ACC"
+echo "Application ID:$APP_ID_TRIM"
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:escrow_set" --app-arg "addr:${ESCROW_ACC_TRIMM}" -f ${MAIN_ACC}
 ${goalcli} app read --app-id ${APP_ID_TRIM} --guess-format --global --from ${MAIN_ACC}
 ;;
@@ -120,11 +120,13 @@ if [ $2 = "auto" ]; then
   if [[ -f "appasa-asset-index.txt" ]]; then
     echo "File found..."
     ASSET_INDEX_STR=$(cat "appasa-asset-index.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
-    ASSET_INDEX_STR_TRIM="${APP_ID//$'\r'/ }"
+    ASSET_INDEX_STR_TRIM="${ASSET_INDEX_STR//$'\r'/ }"
+    echo "Auto AppASA index (counter) setting selected! Previous index found: ${ASSET_INDEX_STR_TRIM}"
+    
+    ASSET_INDEX="$((ASSET_INDEX_STR_TRIM + 1))"
+    echo "Next index counter calculated: ${ASSET_INDEX}"
 
-    ASSET_INDEX="$((ASSET_INDEX + 1))"
-
-    echo "Auto AppASA index (counter) setting selected! Previous index found: ${ASSET_INDEX}"
+    
     rm -f appasa-asset-index.txt
     echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt"
   else
@@ -147,6 +149,7 @@ APP_ID_TRIM="${APP_ID//$'\r'/ }"
 ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
 $sandboxcli copyTo "$ESCROW_PROG_SND"
 echo "Escrow account: $ESCROW_ACC_TRIM"
+echo "Main account: $MAIN_ACC"
 echo "Application ID:$APP_ID_TRIM"
 echo "The asset name (AppASA-x) counter (x):$ASSET_INDEX x: AppASA-$ASSET_INDEX"
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_cfg" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx

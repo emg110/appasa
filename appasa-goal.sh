@@ -14,7 +14,8 @@ export SHELLOPTS
 set -e
 #set -x
 
-bashuppercli="../"
+
+
 goalcli="../sandbox/sandbox goal"
 tealdbgcli="../sandbox/sandbox tealdbg"
 sandboxcli="../sandbox/sandbox"
@@ -25,8 +26,9 @@ ESCROW_PROG="appasa-escrow-prog.teal"
 case $1 in
 install)
 echo "Installing sandbox environment"
-$bashuppercli git clone https://github.com/algorand/sandbox
+cd "../" && git clone https://github.com/algorand/sandbox
 echo "Algorand Sandbox installed in parent folder (Beside current folder)"
+cd algorand-gitcoin-bounty-appasa
 ;;
 reset)
 echo "Reseting sandbox environment"
@@ -145,8 +147,7 @@ if [ $2 = "auto" ]; then
   fi
 else
     echo "Manual counting mode selected! AppASA index counter set to ${2}"
-    ASSET_INDEX= $2
-    ASSET_INDEX="$((ASSET_INDEX + 1))"
+    ASSET_INDEX="$2"
     echo -ne "${ASSET_INDEX}" > "appasa-asset-index.txt" 
 fi
 
@@ -163,7 +164,7 @@ echo "Application ID:$APP_ID_TRIM"
 echo "The asset name (AppASA-x) counter (x):$ASSET_INDEX x: AppASA-$ASSET_INDEX"
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_cfg" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx
 $sandboxcli copyFrom "trx-call-app-unsigned.tx"
-${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-${ASSET_INDEX}" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
+${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-$ASSET_INDEX" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
 $sandboxcli copyFrom "trx-create-asa-unsigned.tx"
 cat trx-call-app-unsigned.tx trx-create-asa-unsigned.tx > trx-array-asa-unsigned.tx
 $sandboxcli copyTo "trx-array-asa-unsigned.tx"
@@ -188,11 +189,33 @@ rm -f *.scratch
 rm -f *.json
 rm -f sed
 ;;
+
 dryrun)
-echo "Dry running signed transaction group"
+echo "Creating Dry-run dump from signed transaction group..."
 ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
+echo "Dryrun dump JSON file generated successfully!"
 ;;
+
+drapproval)
+echo "Dry-running signed approval program with signed transaction group ..."
+${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
+$sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
+cd "../" && docker exec -it algorand-sandbox-algod  tealdbg debug ${APPROVAL_PROG} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json --group-index 0
+echo "The Dry run JSON file is running to check Approval Smart Contract"
+cd algorand-gitcoin-bounty-appasa
+
+
+;;
+drescrow)
+echo "Dry-running signed approval program with signed transaction group..."
+${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
+$sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
+cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json
+echo "The Dry run JSON file is running to check Stateful Approval Smart Contract..."
+cd algorand-gitcoin-bounty-appasa
+;;
+
 axfer)
 ASSET_ID=0
 

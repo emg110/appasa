@@ -62,7 +62,6 @@ retsub
 
 bacfg:
 callsub bacfgcheck
-return
 byte "iter"
 app_global_get
 int 10

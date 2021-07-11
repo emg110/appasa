@@ -34,7 +34,7 @@ reset)
 echo "Reseting sandbox environment"
 rm -f appasa-asset-index.txt
 rm -f appasa-id.txt
-rm -f appasa-escrow-prog-snd.txt
+rm -f appasa-escrow-prog-snd.teal
 rm -f appasa-escrow-account.txt
 rm -f appasa-main-account.txt
 $sandboxcli reset
@@ -49,7 +49,7 @@ $sandboxcli up
 ;;
 asc)
 rm -f appasa-id.txt
-rm -f appasa-escrow-prog-snd.txt
+rm -f appasa-escrow-prog-snd.teal
 rm -f appasa-escrow-account.txt
 rm -f appasa-main-account.txt
 cp "$APPROVAL_PROG" "$CLEAR_PROG" ../sandbox

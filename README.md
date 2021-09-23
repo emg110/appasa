@@ -26,7 +26,7 @@ This is very simple demo tool built using shell script, Algorand's beautiful goa
 - TEAL is parametrized in this solution demo implementation and APPLICATION ID is dymically set for smart contract before compile and therefore the process and the whole solution demo does not any manual settings or values or even default values per say(The only default values are those demanded by the bounty description e.g. only one unit of AppASA-x would be transfered to any requesting party).
 
 
-- It's on sandbox! This entire demo works on [Algorand Sandbox](https://gtihub.com/algorand/sandbox).
+- It's sandboxed baby! This entire demo works on amazing [Algorand Sandbox](https://gtihub.com/algorand/sandbox).
 
 
 ## How to use AppASA

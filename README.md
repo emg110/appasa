@@ -14,10 +14,13 @@ Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algor
 
 ## Technical notes
 
-> This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
+> This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) and assumes it exists already.
+> Please install this repo **next to** the sandbox folder in your workspace.
+> Run `chmod +x appasa.sh` in appasa folder to let the scripts run.
+
 
 ### What does this demo do
-This is a very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
+This is a very simple demo tool built using bash script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
 ### What was exciting about this AppASA solution!
 - Full featured command line to experience the power of Algorand in a classic way.
@@ -59,16 +62,10 @@ That's it! Have fun Algoranding using AppASA!
 
 ### List of commands (and their arguments if any)
 
-- If you have sandbox installed , install this repo beside the sandbox folder in your workspace please. if not, no worries! start from this repo you have it covered. Afer cloning start and :
-
 #### Sandbox utilities
-- For help, Run the bash script help command:
+- For help, Run with help flag:
 
 `./appasa.sh help` 
-
-- To install sandbox:
-
-`./appasa.sh install` 
 
 - To start sandbox:
 

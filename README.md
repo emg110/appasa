@@ -39,7 +39,7 @@ This is a very simple demo tool built using bash script, Algorand's beautiful go
 
 
 ### How to use AppASA
-Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!
+Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo environment in no time!
 
 - Clone this repository from GitHub to your workspace using:
   

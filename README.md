@@ -17,10 +17,10 @@ Hi! MG here!
 Many many thanks to Jason, Ryan, Russ, Fabrice and all Algorand & Algorand Foundation team for being willing, welcoming, accepting and guiding.
 
 ## What does this demo do
-This is very simple yet very powerful demo tool built using pure bash script, goal beautiful command line and TEAL 4 (No SDK used) to serve the purpose of providing a solution to bounty above but in an elegant way to be extendible and re-usable in future for Algorand developers using GOAL and TEAL 4.
+This is very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
 ## What is exciting about this AppASA solution
-- Full automatic beautifull command line to experience the power of Algorand in a classy way.
+- Full featured command line to experience the power of Algorand in a classic way.
 
 
 - TEAL is parametrized in this solution demo implementation and APPLICATION ID is dymically set for smart contract before compile and therefore the process and the whole solution demo does not any manual settings or values or even default values per say(The only default values are those demanded by the bounty description e.g. only one unit of AppASA-x would be transfered to any requesting party).

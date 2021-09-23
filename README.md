@@ -38,7 +38,7 @@ Easily! You can get AppASA solution demo up & running in no time because it uses
 
 - Run the bash script file inside using :
 
-`./appasa-goal.sh <Command> <Arg>` 
+`./appasa.sh <Command> <Arg>` 
 
 That's it! Have fun Algoranding using AppASA!
 
@@ -64,50 +64,50 @@ That's it! Have fun Algoranding using AppASA!
 #### Sandbox utilities
 - For help, Run the bash script help command:
 
-`./appasa-goal.sh help` 
+`./appasa.sh help` 
 
 - To install sandbox:
 
-`./appasa-goal.sh install` 
+`./appasa.sh install` 
 
 - To start sandbox:
 
-`./appasa-goal.sh start` 
+`./appasa.sh start` 
 
 - To stop sandbox:
 
-`./appasa-goal.sh stop` 
+`./appasa.sh stop` 
 
 - To reset sandbox :
 
-`./appasa-goal.sh reset` 
+`./appasa.sh reset` 
 
 
 #### Node utilities
 
 - For node status :
 
-`./appasa-goal.sh status` 
+`./appasa.sh status` 
 
 - For list of transactions on node from indexer:
 
-`./appasa-goal.sh trxlist` 
+`./appasa.sh trxlist` 
 
 - To check info on main account:
 
-`./appasa-goal.sh main` 
+`./appasa.sh main` 
 
 - To check info on escrow account:
 
-`./appasa-goal.sh escrow` 
+`./appasa.sh escrow` 
 
 - To check balance on main account:
 
-`./appasa-goal.sh mainbal` 
+`./appasa.sh mainbal` 
 
 - To check info on escrow account:
 
-`./appasa-goal.sh escrowbal` 
+`./appasa.sh escrowbal` 
 
 
 
@@ -117,23 +117,23 @@ That's it! Have fun Algoranding using AppASA!
 
 - 1- Create algorand smart contratcs (statefull app and stateless excrow) :
 
-`./appasa-goal.sh asc`
+`./appasa.sh asc`
 
 - 2- Fund escrow account in MicroAlgos (stateless smart contract) :
 
-`./appasa-goal.sh fund AMOUNT` e.g. `./appasa-goal.sh fund 250000000` 
+`./appasa.sh fund AMOUNT` e.g. `./appasa.sh fund 250000000` 
 
 - 3- Link stateful smart contract and stateless smart contarcts (app & escrow) :
 
-`./appasa-goal.sh link`
+`./appasa.sh link`
 
 - 4- Create the standard asset named AppASA-x (x being counter) :
 
-`./appasa-goal.sh asa COUNTER`e.g. `./appasa-goal.sh asa 0` 
+`./appasa.sh asa COUNTER`e.g. `./appasa.sh asa 0` 
 
 - 5- Transfer one unit of created AppASA-x to main account on system :
 
-`./appasa-goal.sh axfer ASSET_INDEX`e.g. `./appasa-goal.sh axfer 13` 
+`./appasa.sh axfer ASSET_INDEX`e.g. `./appasa.sh axfer 13` 
 
 
 

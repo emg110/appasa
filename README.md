@@ -15,7 +15,9 @@ Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algor
 ## Technical notes
 
 > This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) and assumes it exists already.
+
 > Please install this repo **next to** the sandbox folder in your workspace.
+
 > Run `chmod +x appasa.sh` in appasa folder to let the scripts run.
 
 

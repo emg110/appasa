@@ -9,16 +9,17 @@ AppASA repository contains code solution plus tutorial content, prepared for Alg
 [@emg110 ](https://github.com/emg110)
 
 Hi! MG here!
-Many many thanks to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
+
+Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
 
 ## Technical notes
 
 > This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
 
-## What does this demo do
+### What does this demo do
 This is a very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
-## What was exciting about this AppASA solution!
+### What was exciting about this AppASA solution!
 - Full featured command line to experience the power of Algorand in a classic way.
 
 - TEAL is parametrized in CLI for this solution (on Application ID).
@@ -28,7 +29,7 @@ This is a very simple demo tool built using shell script, Algorand's beautiful g
 - It's sandboxed baby! This entire demo works on amazing [Algorand Sandbox](https://gtihub.com/algorand/sandbox).
 
 
-## How to use AppASA
+### How to use AppASA
 Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!
 
 - Clone this repository from GitHub to your workspace using:
@@ -41,7 +42,7 @@ Easily! You can get AppASA solution demo up & running in no time because it uses
 
 That's it! Have fun Algoranding using AppASA!
 
-## Screen capture demos of main bounty feature mandates
+### Screen capture demos of main bounty feature mandates
 
 #### Creating stateful smart contract application
 <img title="AppASA Solution from @emg110 " src="./assets/appasa-start.gif">
@@ -56,7 +57,7 @@ That's it! Have fun Algoranding using AppASA!
 #### Transfering one unit of the created asset (or other created assets from escrow account assets) to main account on system
 <img title="AppASA Solution from @emg110 " src="./assets/appasa-axfer.gif">
 
-## List of commands (and their arguments if any)
+### List of commands (and their arguments if any)
 
 - If you have sandbox installed , install this repo beside the sandbox folder in your workspace please. if not, no worries! start from this repo you have it covered. Afer cloning start and :
 
@@ -110,7 +111,7 @@ That's it! Have fun Algoranding using AppASA!
 
 
 
-#### AppASA Solution Demo Process
+### AppASA Solution Demo Process
 
 **order of running is important to be as numbered!**
 

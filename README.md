@@ -22,6 +22,8 @@ Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algor
 
 > Make sure you have a wallet and an active account under it, on sandbox, check [sandbox docs](https://github.com/algorand/sandbox) for more information.
 
+> It's very important that the wallet you use for test and development does not have a password on it , otherwise the process will be intrupted and hangs.
+
 
 ### What does this demo do
 This is a very simple demo tool built using bash script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.

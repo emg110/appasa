@@ -9,22 +9,20 @@ AppASA repository contains code solution plus tutorial content, prepared for Alg
 [@emg110 ](https://github.com/emg110)
 
 Hi! MG here!
+Many many thanks to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
 
 ## Technical notes
 
-#### This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
-
-## Thanks and appreciations
-Many many thanks to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
+> This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
 
 ## What does this demo do
 This is a very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
-## What is exciting about this AppASA solution
+## What was exciting about this AppASA solution!
 - Full featured command line to experience the power of Algorand in a classic way.
 
-
-- TEAL is parametrized in this solution demo implementation and APPLICATION ID is dymically set for smart contract before compile and therefore the process and the whole solution demo does not any manual settings or values or even default values per say(The only default values are those demanded by the bounty description e.g. only one unit of AppASA-x would be transfered to any requesting party).
+- TEAL is parametrized in CLI for this solution (on Application ID).
+- Many featured demos out of the box & by a single command: Creating stateful smart contract, creating stateless smart contract
 
 
 - It's sandboxed baby! This entire demo works on amazing [Algorand Sandbox](https://gtihub.com/algorand/sandbox).

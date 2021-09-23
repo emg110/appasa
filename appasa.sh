@@ -14,8 +14,6 @@ export SHELLOPTS
 set -e
 #set -x
 
-
-
 goalcli="../sandbox/sandbox goal"
 tealdbgcli="../sandbox/sandbox tealdbg"
 sandboxcli="../sandbox/sandbox"
@@ -24,26 +22,6 @@ APPROVAL_PROG="appasa-approval-prog.teal"
 CLEAR_PROG="appasa-clear-prog.teal"
 ESCROW_PROG="appasa-escrow-prog.teal"
 case $1 in
-install)
-if [[ ! -d "../sandbox" ]]
-then
-    echo "Installing Algorand SandBox environment"
-    echo "        "
-    git clone https://github.com/algorand/sandbox.git ../sandbox
-    echo "Algorand SandBox installed successfully in parent folder (Next to AppASA folder)"
-    echo "        "
-    ${goalcli} wallet new 'appasa-wallet'
-    echo "AppASA wallet successfully created!"
-    echo "        "
-    ${goalcli} account new
-    echo "AppASA account on AppASA wallet successfully created!"
-    echo "        "
-else
-  echo "Algorand SandBox is already installed!"
-  echo "        "
-fi
-cd appasa
-;;
 reset)
 echo "Reseting sandbox environment"
 rm -f appasa-asset-index.txt
@@ -53,8 +31,8 @@ rm -f appasa-escrow-account.txt
 rm -f appasa-main-account.txt
 $sandboxcli reset
 ;;
-stop)
-echo "Stopping sandbox environment"
+down)
+echo "Tearing down sandbox environment"
 $sandboxcli down
 ;;
 start)
@@ -69,22 +47,12 @@ rm -f appasa-main-account.txt
 cp "$APPROVAL_PROG" "$CLEAR_PROG" ../sandbox
 $sandboxcli copyTo "$APPROVAL_PROG"
 $sandboxcli copyTo "$CLEAR_PROG"
-APP=$(
-  ${goalcli} app create --creator "${ACC}" --clear-prog "$CLEAR_PROG" --approval-prog "$APPROVAL_PROG" \
-    --global-byteslices 1 \
-    --local-byteslices 0 \
-    --global-ints 1 \
-    --local-ints 0 |
-    grep Created |
-    awk '{ print $NF }'
-)
+APP=$(${goalcli} app create --creator "${ACC}" --clear-prog "$CLEAR_PROG" --approval-prog "$APPROVAL_PROG" --global-byteslices 1 --local-byteslices 0 --global-ints 1 --local-ints 0 | grep Created | awk '{ print $NF }')
 echo -ne "${APP}" > "appasa-id.txt"
 cat $ESCROW_PROG | awk -v awk_var=${APP} '{ gsub("appIdParam", awk_var); print}' > "appasa-escrow-prog-snd.teal"
 ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
 $sandboxcli copyTo "$ESCROW_PROG_SND"
-ESCROW_ACCOUNT=$(
-  ${goalcli} clerk compile -a ${ACC} -n ${ESCROW_PROG_SND} | awk '{ print $2 }' | head -n 1
-)
+ESCROW_ACCOUNT=$(${goalcli} clerk compile -a ${ACC} -n ${ESCROW_PROG_SND} | awk '{ print $2 }' | head -n 1)
 echo -ne "${ACC}" > "appasa-main-account.txt"
 echo -ne "${ESCROW_ACCOUNT}" > "appasa-escrow-account.txt"
 echo "Stateful Application ID $APP"
@@ -93,8 +61,13 @@ echo "Stateless Escrow Account = ${ESCROW_ACCOUNT}"
 fund)
 AMOUNT=$2
 MAIN_ACC=$(<appasa-main-account.txt)
+echo $MAIN_ACC
+
 ESCROW_ACC=$(cat "appasa-escrow-account.txt" | head -n 1 | awk -v awk_var='' '{ gsub(" ", awk_var); print}')
+echo $ESCROW_ACC
+
 ESCROW_ACC_TRIM="${ESCROW_ACC//$'\r'/ }"
+echo $ESCROW_ACC_TRIM
 ${goalcli} clerk send -a ${AMOUNT} -f "${MAIN_ACC}" --to ${ESCROW_ACC_TRIM}
 ;;
 escrowbal)
@@ -318,20 +291,14 @@ echo "                "
 echo " -------------------------------------------------               "
 echo "Sandbox commands:"
 echo "                "
-echo "./appasa.sh install" 
-echo "Installs the sandbox instance" 
-echo "                "
 echo "./appasa.sh reset"
 echo "Resets the sandbox instance" 
 echo "                "
 echo "./appasa.sh start"
 echo "Starts the sandbox instance" 
 echo "                "
-echo "./appasa.sh stop"
-echo "Stops the sandbox instance" 
-echo "                "
-echo "./appasa.sh stop"
-echo "Stops the sandbox instance" 
+echo "./appasa.sh down"
+echo "Tears down the sandbox instance" 
 echo "                "
 echo "./appasa.sh status"
 echo "Displays the sandbox node instance status info" 

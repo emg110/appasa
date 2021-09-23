@@ -6,7 +6,7 @@ echo "
 /_/  |_|/ .___// .___//_/  |_|/____//_/  |_|
        /_/    /_/                           
 "
-date '+ Running algorand-gitcoin-bounty-appasa | by @emg110 | %Y/%m/%d %H:%M:%S |'
+date '+ Running AppASA | by @emg110 | %Y/%m/%d %H:%M:%S |'
 echo "----------------------------------------------------------------------------"
 echo "                       "
 set -o pipefail
@@ -25,10 +25,24 @@ CLEAR_PROG="appasa-clear-prog.teal"
 ESCROW_PROG="appasa-escrow-prog.teal"
 case $1 in
 install)
-echo "Installing sandbox environment"
-cd "../" && git clone https://github.com/algorand/sandbox
-echo "Algorand Sandbox installed in parent folder (Beside current folder)"
-cd algorand-gitcoin-bounty-appasa
+if [[ ! -d "../sandbox" ]]
+then
+    echo "Installing Algorand SandBox environment"
+    echo "        "
+    git clone https://github.com/algorand/sandbox.git ../sandbox
+    echo "Algorand SandBox installed successfully in parent folder (Next to AppASA folder)"
+    echo "        "
+    ${goalcli} wallet new 'appasa-wallet'
+    echo "AppASA wallet successfully created!"
+    echo "        "
+    ${goalcli} account new
+    echo "AppASA account on AppASA wallet successfully created!"
+    echo "        "
+else
+  echo "Algorand SandBox is already installed!"
+  echo "        "
+fi
+cd appasa
 ;;
 reset)
 echo "Reseting sandbox environment"
@@ -47,7 +61,7 @@ start)
 echo "Starting sandbox environment"
 $sandboxcli up
 ;;
-asc)
+smarts)
 rm -f appasa-id.txt
 rm -f appasa-escrow-prog-snd.teal
 rm -f appasa-escrow-account.txt
@@ -123,7 +137,7 @@ echo "Application ID:$APP_ID_TRIM"
 ${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:escrow_set" --app-arg "addr:${ESCROW_ACC_TRIMM}" -f ${MAIN_ACC}
 ${goalcli} app read --app-id ${APP_ID_TRIM} --guess-format --global --from ${MAIN_ACC}
 ;;
-asa)
+asset)
 echo "Generating Standard Asset..."
 ASSET_INDEX=0
 if [ $2 = "auto" ]; then
@@ -203,7 +217,7 @@ ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-as
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
 cd "../" && docker exec -it algorand-sandbox-algod  tealdbg debug ${APPROVAL_PROG} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json --group-index 0
 echo "The Dry run JSON file is running to check Approval Smart Contract"
-cd algorand-gitcoin-bounty-appasa
+cd appasa
 
 
 ;;
@@ -213,7 +227,7 @@ ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-as
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
 cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json
 echo "The Dry run JSON file is running to check Stateful Approval Smart Contract..."
-cd algorand-gitcoin-bounty-appasa
+cd appasa
 ;;
 
 axfer)
@@ -278,63 +292,84 @@ echo "Getting node status from goal..."
 ${goalcli}  node status
 ;;
 help)
-echo "@emg110 demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "AppASA demo tool for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
 echo "                "
 echo "Step by step process flow:"
 echo "                "
-echo "1- ./appasa-goal.sh asc" 
+echo "1- ./appasa.sh smarts" 
 echo "To create the stateful smart contract application and stateless smart contract escrow sccount" 
 echo "                "
-echo "2- ./appasa-goal.sh fund AMOUNT"
+echo "2- ./appasa.sh fund AMOUNT"
 echo "To send funds (equal to AMOUNT) to escrow account from main account" 
 echo "                "
-echo "3- ./appasa-goal.sh link"
+echo "3- ./appasa.sh link"
 echo "To link stateful contract application with stateless contract escrow account" 
 echo "                "
-echo "4- ./appasa-goal.sh asa 'INDEX' or 'auto'"
+echo "4- ./appasa.sh asset 'INDEX' or 'auto'"
 echo "To generate standard asset with counter INDEX (e.g 0). set 'auto' to make everything automated" 
 echo "                "
-echo "5- ./appasa-goal.sh escrow"
+echo "5- ./appasa.sh escrow"
 echo "To check the assets generated in previous level under the escrow account info (Use this in next step if going to do it manual!)" 
 echo "                "
 echo "                "
-echo "6- ./appasa-goal.sh axfer 'ID' or 'auto'"
+echo "6- ./appasa.sh axfer 'ID' or 'auto'"
 echo "To transfer (receive) one unit of standard asset with ID (e.g 5). set 'auto' to make everything automated" 
 echo "                "
 echo " -------------------------------------------------               "
 echo "Sandbox commands:"
 echo "                "
-echo "./appasa-goal.sh install" 
+echo "./appasa.sh install" 
 echo "Installs the sandbox instance" 
 echo "                "
-echo "./appasa-goal.sh reset"
+echo "./appasa.sh reset"
 echo "Resets the sandbox instance" 
 echo "                "
-echo "./appasa-goal.sh start"
+echo "./appasa.sh start"
 echo "Starts the sandbox instance" 
 echo "                "
-echo "./appasa-goal.sh stop"
+echo "./appasa.sh stop"
 echo "Stops the sandbox instance" 
+echo "                "
+echo "./appasa.sh stop"
+echo "Stops the sandbox instance" 
+echo "                "
+echo "./appasa.sh status"
+echo "Displays the sandbox node instance status info" 
 echo "                "
 echo "--------------------------------------------------             "
 echo "Other usefull commands:"
 echo "                "
-echo "./appasa-goal.sh main" 
+echo "./appasa.sh main" 
 echo "Show main account's info" 
 echo "                "
-echo "./appasa-goal.sh escrow"
+echo "./appasa.sh escrow"
 echo "Show generated escrow account's info" 
 echo "                "
-echo "./appasa-goal.sh mainbal"
+echo "./appasa.sh mainbal"
 echo "Show main account's balance" 
 echo "                "
-echo "./appasa-goal.sh escrowbal"
+echo "./appasa.sh escrowbal"
 echo "Show generated escrow account's balance" 
 echo "                "
-
+echo "./appasa.sh trxlist"
+echo "Show generated transactions list" 
+echo "                "
+echo "--------------------------------------------------             "
+echo "Dry run commands:"
+echo "                "
+echo "./appasa.sh dryrun" 
+echo "Show main account's info" 
+echo "                "
+echo "./appasa.sh drapproval"
+echo "Dry run stateful approval program" 
+echo "                "
+echo "./appasa.sh drescrow"
+echo "Dry run stateless program" 
+echo "                "
 ;;
 *)
-echo "Welcome To @emg110 (Hi, MG here!) demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
-echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content in response to Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset (https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)"
+echo "Welcome To AppASA demo tool!"
+echo "Create Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content for Algorand Developers Portal publication"
 ;;
 esac

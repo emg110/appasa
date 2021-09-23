@@ -14,10 +14,17 @@ Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algor
 
 ## Technical notes
 
-> This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
+> This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) and assumes it exists already.
+
+> Please install this repo **next to** the sandbox folder in your workspace.
+
+> Run `chmod +x appasa.sh` in appasa folder to let the scripts run.
+
+> Make sure you have a wallet and an active account under it, on sandbox, check [sandbox docs](https://github.com/algorand/sandbox) for more information.
+
 
 ### What does this demo do
-This is a very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
+This is a very simple demo tool built using bash script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
 ### What was exciting about this AppASA solution!
 - Full featured command line to experience the power of Algorand in a classic way.
@@ -38,7 +45,7 @@ Easily! You can get AppASA solution demo up & running in no time because it uses
 
 - Run the bash script file inside using :
 
-`./appasa-goal.sh <Command> <Arg>` 
+`./appasa.sh <Command> <Arg>` 
 
 That's it! Have fun Algoranding using AppASA!
 
@@ -59,55 +66,49 @@ That's it! Have fun Algoranding using AppASA!
 
 ### List of commands (and their arguments if any)
 
-- If you have sandbox installed , install this repo beside the sandbox folder in your workspace please. if not, no worries! start from this repo you have it covered. Afer cloning start and :
-
 #### Sandbox utilities
-- For help, Run the bash script help command:
+- For help, Run with help flag:
 
-`./appasa-goal.sh help` 
-
-- To install sandbox:
-
-`./appasa-goal.sh install` 
+`./appasa.sh help` 
 
 - To start sandbox:
 
-`./appasa-goal.sh start` 
+`./appasa.sh start` 
 
 - To stop sandbox:
 
-`./appasa-goal.sh stop` 
+`./appasa.sh stop` 
 
 - To reset sandbox :
 
-`./appasa-goal.sh reset` 
+`./appasa.sh reset` 
 
 
 #### Node utilities
 
 - For node status :
 
-`./appasa-goal.sh status` 
+`./appasa.sh status` 
 
 - For list of transactions on node from indexer:
 
-`./appasa-goal.sh trxlist` 
+`./appasa.sh trxlist` 
 
 - To check info on main account:
 
-`./appasa-goal.sh main` 
+`./appasa.sh main` 
 
 - To check info on escrow account:
 
-`./appasa-goal.sh escrow` 
+`./appasa.sh escrow` 
 
 - To check balance on main account:
 
-`./appasa-goal.sh mainbal` 
+`./appasa.sh mainbal` 
 
 - To check info on escrow account:
 
-`./appasa-goal.sh escrowbal` 
+`./appasa.sh escrowbal` 
 
 
 
@@ -117,23 +118,23 @@ That's it! Have fun Algoranding using AppASA!
 
 - 1- Create algorand smart contratcs (statefull app and stateless excrow) :
 
-`./appasa-goal.sh asc`
+`./appasa.sh asc`
 
 - 2- Fund escrow account in MicroAlgos (stateless smart contract) :
 
-`./appasa-goal.sh fund AMOUNT` e.g. `./appasa-goal.sh fund 250000000` 
+`./appasa.sh fund AMOUNT` e.g. `./appasa.sh fund 250000000` 
 
 - 3- Link stateful smart contract and stateless smart contarcts (app & escrow) :
 
-`./appasa-goal.sh link`
+`./appasa.sh link`
 
 - 4- Create the standard asset named AppASA-x (x being counter) :
 
-`./appasa-goal.sh asa COUNTER`e.g. `./appasa-goal.sh asa 0` 
+`./appasa.sh asa COUNTER`e.g. `./appasa.sh asa 0` 
 
 - 5- Transfer one unit of created AppASA-x to main account on system :
 
-`./appasa-goal.sh axfer ASSET_INDEX`e.g. `./appasa-goal.sh axfer 13` 
+`./appasa.sh axfer ASSET_INDEX`e.g. `./appasa.sh axfer 13` 
 
 
 

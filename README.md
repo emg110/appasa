@@ -20,6 +20,8 @@ Many many thanks goes to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algor
 
 > Run `chmod +x appasa.sh` in appasa folder to let the scripts run.
 
+> Make sure you have a wallet and an active account under it, on sandbox, check [sandbox docs](https://github.com/algorand/sandbox) for more information.
+
 
 ### What does this demo do
 This is a very simple demo tool built using bash script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.

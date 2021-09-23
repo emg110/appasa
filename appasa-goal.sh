@@ -25,9 +25,23 @@ CLEAR_PROG="appasa-clear-prog.teal"
 ESCROW_PROG="appasa-escrow-prog.teal"
 case $1 in
 install)
-echo "Installing sandbox environment"
-cd "../" && git clone https://github.com/algorand/sandbox
-echo "Algorand Sandbox installed in parent folder (Beside current folder)"
+if [[ ! -d "../sandbox" ]]
+then
+    echo "Installing Algorand SandBox environment"
+    echo "        "
+    git clone https://github.com/algorand/sandbox.git ../sandbox
+    echo "Algorand SandBox installed successfully in parent folder (Next to AppASA folder)"
+    echo "        "
+    ${goalcli} wallet new 'appasa-wallet'
+    echo "AppASA wallet successfully created!"
+    echo "        "
+    ${goalcli} account new
+    echo "AppASA account on AppASA wallet successfully created!"
+    echo "        "
+else
+  echo "Algorand SandBox is already installed!"
+  echo "        "
+fi
 cd appasa
 ;;
 reset)

@@ -6,7 +6,7 @@ echo "
 /_/  |_|/ .___// .___//_/  |_|/____//_/  |_|
        /_/    /_/                           
 "
-date '+ Running algorand-gitcoin-bounty-appasa | by @emg110 | %Y/%m/%d %H:%M:%S |'
+date '+ Running AppASA | by @emg110 | %Y/%m/%d %H:%M:%S |'
 echo "----------------------------------------------------------------------------"
 echo "                       "
 set -o pipefail
@@ -28,7 +28,7 @@ install)
 echo "Installing sandbox environment"
 cd "../" && git clone https://github.com/algorand/sandbox
 echo "Algorand Sandbox installed in parent folder (Beside current folder)"
-cd algorand-gitcoin-bounty-appasa
+cd appasa
 ;;
 reset)
 echo "Reseting sandbox environment"
@@ -203,7 +203,7 @@ ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-as
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
 cd "../" && docker exec -it algorand-sandbox-algod  tealdbg debug ${APPROVAL_PROG} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json --group-index 0
 echo "The Dry run JSON file is running to check Approval Smart Contract"
-cd algorand-gitcoin-bounty-appasa
+cd appasa
 
 
 ;;
@@ -213,7 +213,7 @@ ${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-as
 $sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
 cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json
 echo "The Dry run JSON file is running to check Stateful Approval Smart Contract..."
-cd algorand-gitcoin-bounty-appasa
+cd appasa
 ;;
 
 axfer)
@@ -334,7 +334,8 @@ echo "                "
 
 ;;
 *)
-echo "Welcome To @emg110 (Hi, MG here!) demo for creating Algorand Standard Assets using linked stateful and stateless smart contracts"
-echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content in response to Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset (https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)"
+echo "Welcome To AppASA demo tool!"
+echo "Create Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content for Algorand Developers Portal publication"
 ;;
 esac

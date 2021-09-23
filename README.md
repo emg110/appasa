@@ -11,10 +11,10 @@ Hi! MG here!
 
 ## Technical notes
 
-#### This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (inside sandbox's upper parent folder).
+#### This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (this repo and sandbox ought to work under the same parent directory).
 
 ## Thanks and appreciations
-Many many thanks to Jason, Ryan, Russ, Fabrice and all Algorand & Algorand Foundation team for being willing, welcoming, accepting and guiding.
+Many many thanks to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
 
 ## What does this demo do
 This is very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
@@ -30,7 +30,7 @@ This is very simple demo tool built using shell script, Algorand's beautiful goa
 
 
 ## How to use AppASA
-Easily under 10 seconds you can get AppASA solution demo up & running because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!
+Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!
 
 - Clone this repository from GitHub to your workspace using:
   
@@ -40,7 +40,7 @@ Easily under 10 seconds you can get AppASA solution demo up & running because it
 
 `./appasa-goal.sh <Command> <Arg>` 
 
-That's it! Happy Algoranding using AppASA
+That's it! Have fun Algoranding using AppASA!
 
 ## Screen capture demos of main bounty feature mandates
 

@@ -1,7 +1,7 @@
-<img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-banner.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-banner.png">
 
-# AppASA algorand-gitcoin-bounty-appasa
-AppASA repository contains bounty solution plus educational code & content (DO NOT USE DIRECTLY IN PRODUCTION or MAINNET) in response to  [Algorand bounty on GitCoin: Stateful Smart Contract To Create Algorand Standard Asset](https://gitcoin.co/issue/algorandfoundation/grow-algorand/43/100025866)
+# AppASAn
+AppASA repository contains code solution (DO NOT USE DIRECTLY IN PRODUCTION or MAINNET)  plus tutorial content, prepoared for Algorand's Developers Portal.
 
 ## Author
 
@@ -14,7 +14,7 @@ Hi! MG here!
 #### This repository uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) therefore if already have it installed please clone this repo beside it (inside sandbox's upper parent folder).
 
 ## Thanks and appreciations
-Many many thanks to Jason, Ryan, Russ, Fabrice and all Algoprand & Algorand Foundation team for being willing, welcoming, accepting and guiding. Special thanks to Algorand foundation GitCoin bounties admins and moderators for doing a very brave and fruiteful job while being responsive and helpful to participants all the time. 
+Many many thanks to Jason, Ryan, Russ, Fabrice and all Algorand & Algorand Foundation team for being willing, welcoming, accepting and guiding.
 
 ## What does this demo do
 This is very simple yet very powerful demo tool built using pure bash script, goal beautiful command line and TEAL 4 (No SDK used) to serve the purpose of providing a solution to bounty above but in an elegant way to be extendible and re-usable in future for Algorand developers using GOAL and TEAL 4.
@@ -34,7 +34,7 @@ Easily under 10 seconds you can get AppASA solution demo up & running because it
 
 - Clone this repository from GitHub to your workspace using:
   
-   `git clone https://github.com/emg110/algorand-gitcoin-bounty-appasa`
+   `git clone https://github.com/emg110/appasa`
 
 - Run the bash script file inside using :
 
@@ -45,17 +45,17 @@ That's it! Happy Algoranding using AppASA
 ## Screen capture demos of main bounty feature mandates
 
 #### Creating stateful smart contract application
-<img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-start.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-start.gif">
 
 #### Funding stateless escrow contract account and then linking stateful and stateless smart contracts (the app and the escrow)
-<img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-asc-fund-link.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-asc-fund-link.gif">
 
 
 #### Create Algorand Standard Asset with name AppASA-x (x being counter)
-<img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-asa.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-asa.gif">
 
 #### Transfering one unit of the created asset (or other created assets from escrow account assets) to main account on system
-<img title="AppASA Algorand GitCoin Bounty Solution from @emg110 " src="./assets/appasa-axfer.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-axfer.gif">
 
 ## List of commands (and their arguments if any)
 

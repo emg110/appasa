@@ -18,7 +18,7 @@ Hi! MG here!
 Many many thanks to **Jason, Ryan, Russ, Fabrice** and all Algorand & Algorand Foundation team for being insightful, willing, welcoming, accepting and guiding.
 
 ## What does this demo do
-This is very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
+This is a very simple demo tool built using shell script, Algorand's beautiful goal command line and TEAL 4 (No SDK used) in hope to be extendible and re-usable in future by Algorand dev community.
 
 ## What is exciting about this AppASA solution
 - Full featured command line to experience the power of Algorand in a classic way.

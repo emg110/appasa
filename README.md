@@ -2,6 +2,7 @@
 
 # AppASA
 AppASA repository contains code solution plus tutorial content, prepared for Algorand's Developers Portal.
+
 **DO NOT USE DIRECTLY IN PRODUCTION or MAINNET unless you know what you're doing!**
 
 ## Author

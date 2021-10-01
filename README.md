@@ -1,8 +1,7 @@
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_banner.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-banner.png">
 
 # AppASA
 AppASA repository contains code solution plus tutorial content, prepared for Algorand's Developers Portal.
-
 **DO NOT USE DIRECTLY IN PRODUCTION or MAINNET unless you know what you're doing!**
 
 ## Author
@@ -40,7 +39,7 @@ This is a very simple demo tool built using bash script, Algorand's beautiful go
 
 
 ### How to use AppASA
-Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo environment in no time!
+Easily! You can get AppASA solution demo up & running in no time because it uses [Algorand Sandbox](https://gtihub.com/algorand/sandbox) to provide demo enviromnet in no time!
 
 - Clone this repository from GitHub to your workspace using:
   
@@ -52,22 +51,20 @@ Easily! You can get AppASA solution demo up & running in no time because it uses
 
 That's it! Have fun Algoranding using AppASA!
 
-### Screen capture demos of main bounty feature mandates
+### Screen capture demos of main features
 
 #### Creating stateful smart contract application
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_smarts.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-start.gif">
 
 #### Funding stateless escrow contract account and then linking stateful and stateless smart contracts (the app and the escrow)
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_fund.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-asc-fund-link.gif">
 
-#### Linking stateful and stateless smart contracts
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_link.png">
 
 #### Create Algorand Standard Asset with name AppASA-x (x being counter)
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_asset.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-asa.gif">
 
 #### Transfering one unit of the created asset (or other created assets from escrow account assets) to main account on system
-<img title="AppASA Solution from @emg110 " src="./assets/appasa_axfer.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa-axfer.gif">
 
 ### List of commands (and their arguments if any)
 

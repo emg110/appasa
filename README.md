@@ -1,4 +1,4 @@
-<img title="AppASA Solution from @emg110 " src="./assets/appasa-banner.png">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_banner.png">
 
 # AppASA
 AppASA repository contains code solution plus tutorial content, prepared for Algorand's Developers Portal.
@@ -54,17 +54,19 @@ That's it! Have fun Algoranding using AppASA!
 ### Screen capture demos of main features
 
 #### Creating stateful smart contract application
-<img title="AppASA Solution from @emg110 " src="./assets/appasa-start.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_smarts.png">
 
-#### Funding stateless escrow contract account and then linking stateful and stateless smart contracts (the app and the escrow)
-<img title="AppASA Solution from @emg110 " src="./assets/appasa-asc-fund-link.gif">
+#### Funding stateless escrow contract account
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_fund.png">
 
+#### Linking stateful and stateless smart contracts (the app and the escrow)
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_link.png">
 
 #### Create Algorand Standard Asset with name AppASA-x (x being counter)
-<img title="AppASA Solution from @emg110 " src="./assets/appasa-asa.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_asset.png">
 
 #### Transfering one unit of the created asset (or other created assets from escrow account assets) to main account on system
-<img title="AppASA Solution from @emg110 " src="./assets/appasa-axfer.gif">
+<img title="AppASA Solution from @emg110 " src="./assets/appasa_axfer.png">
 
 ### List of commands (and their arguments if any)
 

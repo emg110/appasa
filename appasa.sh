@@ -149,25 +149,25 @@ echo "Escrow account: $ESCROW_ACC_TRIM"
 echo "Main account: $MAIN_ACC"
 echo "Application ID:$APP_ID_TRIM"
 echo "The asset name (AppASA-x) counter (x):$ASSET_INDEX x: AppASA-$ASSET_INDEX"
-${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_cfg" -f ${MAIN_ACC} -o trx-call-app-unsigned.tx
-$sandboxcli copyFrom "trx-call-app-unsigned.tx"
-${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-$ASSET_INDEX" --total 99999999 --decimals 0 -o trx-create-asa-unsigned.tx
-$sandboxcli copyFrom "trx-create-asa-unsigned.tx"
-cat trx-call-app-unsigned.tx trx-create-asa-unsigned.tx > trx-array-asa-unsigned.tx
-$sandboxcli copyTo "trx-array-asa-unsigned.tx"
-${goalcli} clerk group -i trx-array-asa-unsigned.tx -o group-trx-asa-unsigned.tx
-$sandboxcli copyFrom "group-trx-asa-unsigned.tx"
-${goalcli} clerk split -i group-trx-asa-unsigned.tx -o trx-asa-unsigned-index.tx
-$sandboxcli copyFrom "trx-asa-unsigned-index-0.tx"
-$sandboxcli copyFrom "trx-asa-unsigned-index-1.tx"
-${goalcli} clerk sign -i trx-asa-unsigned-index-0.tx -o trx-asa-signed-index-0.tx
-$sandboxcli copyFrom "trx-asa-signed-index-0.tx"
-${goalcli} clerk sign -i trx-asa-unsigned-index-1.tx -p ${ESCROW_PROG_SND} -o trx-asa-signed-index-1.tx
-$sandboxcli copyFrom "trx-asa-signed-index-1.tx"
-cat trx-asa-signed-index-0.tx trx-asa-signed-index-1.tx > trx-group-asa-signed.tx
-$sandboxcli copyTo "trx-group-asa-signed.tx"
+${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa_cfg" -f ${MAIN_ACC} -o txn-call-app-unsigned.tx
+$sandboxcli copyFrom "txn-call-app-unsigned.tx"
+${goalcli} asset create --creator ${ESCROW_ACC_TRIM} --name "AppASA-$ASSET_INDEX" --total 99999999 --decimals 0 -o txn-create-asa-unsigned.tx
+$sandboxcli copyFrom "txn-create-asa-unsigned.tx"
+cat txn-call-app-unsigned.tx txn-create-asa-unsigned.tx > txn-array-asa-unsigned.tx
+$sandboxcli copyTo "txn-array-asa-unsigned.tx"
+${goalcli} clerk group -i txn-array-asa-unsigned.tx -o group-txn-asa-unsigned.tx
+$sandboxcli copyFrom "group-txn-asa-unsigned.tx"
+${goalcli} clerk split -i group-txn-asa-unsigned.tx -o txn-asa-unsigned-index.tx
+$sandboxcli copyFrom "txn-asa-unsigned-index-0.tx"
+$sandboxcli copyFrom "txn-asa-unsigned-index-1.tx"
+${goalcli} clerk sign -i txn-asa-unsigned-index-0.tx -o txn-asa-signed-index-0.tx
+$sandboxcli copyFrom "txn-asa-signed-index-0.tx"
+${goalcli} clerk sign -i txn-asa-unsigned-index-1.tx -p ${ESCROW_PROG_SND} -o txn-asa-signed-index-1.tx
+$sandboxcli copyFrom "txn-asa-signed-index-1.tx"
+cat txn-asa-signed-index-0.tx txn-asa-signed-index-1.tx > txn-group-asa-signed.tx
+$sandboxcli copyTo "txn-group-asa-signed.tx"
 echo "Sending signed transaction group with clerk..."
-${goalcli} clerk rawsend -f trx-group-asa-signed.tx
+${goalcli} clerk rawsend -f txn-group-asa-signed.tx
 rm -f *.tx
 rm -f *.rej
 rm -f awk
@@ -179,16 +179,16 @@ rm -f sed
 
 dryrun)
 echo "Creating Dry-run dump from signed transaction group..."
-${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
-$sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
+${goalcli} clerk dryrun -t txn-group-asa-signed.tx --dryrun-dump -o txn-group-asa-signed-dryrun.json
+$sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
 echo "Dryrun dump JSON file generated successfully!"
 ;;
 
 drapproval)
 echo "Dry-running signed approval program with signed transaction group ..."
-${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
-$sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
-cd "../" && docker exec -it algorand-sandbox-algod  tealdbg debug ${APPROVAL_PROG} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json --group-index 0
+${goalcli} clerk dryrun -t txn-group-asa-signed.tx --dryrun-dump -o txn-group-asa-signed-dryrun.json
+$sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
+cd "../" && docker exec -it algorand-sandbox-algod  tealdbg debug ${APPROVAL_PROG} -f cdt --listen 0.0.0.0 -d txn-group-asa-signed-dryrun.json --group-index 0
 echo "The Dry run JSON file is running to check Approval Smart Contract"
 cd appasa
 
@@ -196,9 +196,9 @@ cd appasa
 ;;
 drescrow)
 echo "Dry-running signed approval program with signed transaction group..."
-${goalcli} clerk dryrun -t trx-group-asa-signed.tx --dryrun-dump -o trx-group-asa-signed-dryrun.json
-$sandboxcli copyFrom "trx-group-asa-signed-dryrun.json"
-cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d trx-group-asa-signed-dryrun.json
+${goalcli} clerk dryrun -t txn-group-asa-signed.tx --dryrun-dump -o txn-group-asa-signed-dryrun.json
+$sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
+cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d txn-group-asa-signed-dryrun.json
 echo "The Dry run JSON file is running to check Stateful Approval Smart Contract..."
 cd appasa
 ;;
@@ -230,23 +230,23 @@ echo "The asset ID from which 1 (one) unit will be transfered to main account: $
 
 ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
 ${goalcli} asset send --assetid ${ASSET_ID%?} -f ${MAIN_ACC} -t ${MAIN_ACC} -a 0
-${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa-xfer" -f ${MAIN_ACC} -o trx-get-asa-unsigned.tx
-$sandboxcli copyFrom "trx-get-asa-unsigned.tx"
-${goalcli} asset send --assetid ${ASSET_ID%?} -f ${ESCROW_ACC_TRIM} -t ${MAIN_ACC} -a 1 -o trx-send-asa-unsigned.tx
-$sandboxcli copyFrom "trx-send-asa-unsigned.tx"
-cat trx-get-asa-unsigned.tx trx-send-asa-unsigned.tx > trx-array-asa-transfer-unsigned.tx
-$sandboxcli copyTo "trx-array-asa-transfer-unsigned.tx"
-${goalcli} clerk group -i trx-array-asa-transfer-unsigned.tx -o trx-group-asa-transfer-unsigned.tx
-$sandboxcli copyFrom "trx-group-asa-transfer-unsigned.tx"
-${goalcli} clerk split -i trx-group-asa-transfer-unsigned.tx -o trx-asa-transfer-unsigned-index.tx
-${goalcli} clerk sign -i trx-asa-transfer-unsigned-index-0.tx -o trx-asa-transfer-signed-index-0.tx
-${goalcli} clerk sign -i trx-asa-transfer-unsigned-index-1.tx -p ${ESCROW_PROG_SND} -o trx-asa-transfer-signed-index-1.tx
-$sandboxcli copyFrom "trx-asa-transfer-signed-index-0.tx"
-$sandboxcli copyFrom "trx-asa-transfer-signed-index-1.tx"
-cat trx-asa-transfer-signed-index-0.tx trx-asa-transfer-signed-index-1.tx > trx-group-asa-transfer-signed.tx
-$sandboxcli copyTo "trx-group-asa-transfer-signed.tx"
+${goalcli} app call --app-id ${APP_ID_TRIM} --app-arg "str:asa-xfer" -f ${MAIN_ACC} -o txn-get-asa-unsigned.tx
+$sandboxcli copyFrom "txn-get-asa-unsigned.tx"
+${goalcli} asset send --assetid ${ASSET_ID%?} -f ${ESCROW_ACC_TRIM} -t ${MAIN_ACC} -a 1 -o txn-send-asa-unsigned.tx
+$sandboxcli copyFrom "txn-send-asa-unsigned.tx"
+cat txn-get-asa-unsigned.tx txn-send-asa-unsigned.tx > txn-array-asa-transfer-unsigned.tx
+$sandboxcli copyTo "txn-array-asa-transfer-unsigned.tx"
+${goalcli} clerk group -i txn-array-asa-transfer-unsigned.tx -o txn-group-asa-transfer-unsigned.tx
+$sandboxcli copyFrom "txn-group-asa-transfer-unsigned.tx"
+${goalcli} clerk split -i txn-group-asa-transfer-unsigned.tx -o txn-asa-transfer-unsigned-index.tx
+${goalcli} clerk sign -i txn-asa-transfer-unsigned-index-0.tx -o txn-asa-transfer-signed-index-0.tx
+${goalcli} clerk sign -i txn-asa-transfer-unsigned-index-1.tx -p ${ESCROW_PROG_SND} -o txn-asa-transfer-signed-index-1.tx
+$sandboxcli copyFrom "txn-asa-transfer-signed-index-0.tx"
+$sandboxcli copyFrom "txn-asa-transfer-signed-index-1.tx"
+cat txn-asa-transfer-signed-index-0.tx txn-asa-transfer-signed-index-1.tx > txn-group-asa-transfer-signed.tx
+$sandboxcli copyTo "txn-group-asa-transfer-signed.tx"
 echo "Transfering one unit of AppASA with clerk"
-${goalcli} clerk rawsend -f trx-group-asa-transfer-signed.tx 
+${goalcli} clerk rawsend -f txn-group-asa-transfer-signed.tx 
 rm -f *.tx
 rm -f *.rej
 rm -f awk
@@ -255,7 +255,7 @@ rm -f *.scratch
 rm -f *.json
 rm -f sed
 ;;
-trxlist)
+txnlist)
 echo "listing transactions..."
 curl "localhost:8980/v2/transactions?pretty"
 ;;
@@ -318,7 +318,7 @@ echo "                "
 echo "./appasa.sh escrowbal"
 echo "Show generated escrow account's balance" 
 echo "                "
-echo "./appasa.sh trxlist"
+echo "./appasa.sh txnlist"
 echo "Show generated transactions list" 
 echo "                "
 echo "--------------------------------------------------             "

@@ -47,7 +47,7 @@ rm -f appasa-main-account.txt
 cp "$APPROVAL_PROG" "$CLEAR_PROG" ../sandbox
 $sandboxcli copyTo "$APPROVAL_PROG"
 $sandboxcli copyTo "$CLEAR_PROG"
-APP=$(${goalcli} app create --creator "${ACC}" --clear-prog "$CLEAR_PROG" --approval-prog "$APPROVAL_PROG" --global-byteslices 1 --local-byteslices 0 --global-ints 1 --local-ints 0 | grep Created | awk '{ print $NF }')
+APP=$(${goalcli} app create --creator "${ACC}" --clear-prog "$CLEAR_PROG" --approval-prog "$APPROVAL_PROG" --global-byteslices 2 --local-byteslices 0 --global-ints 1 --local-ints 0 | grep Created | awk '{ print $NF }')
 echo -ne "${APP}" > "appasa-id.txt"
 cat $ESCROW_PROG | awk -v awk_var=${APP} '{ gsub("appIdParam", awk_var); print}' > "appasa-escrow-prog-snd.teal"
 ESCROW_PROG_SND="appasa-escrow-prog-snd.teal"
@@ -184,7 +184,7 @@ $sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
 echo "Dryrun dump JSON file generated successfully!"
 ;;
 
-drapproval)
+debugapp)
 echo "Dry-running signed approval program with signed transaction group ..."
 ${goalcli} clerk dryrun -t txn-group-asa-signed.tx --dryrun-dump -o txn-group-asa-signed-dryrun.json
 $sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
@@ -194,13 +194,18 @@ cd appasa
 
 
 ;;
-drescrow)
+debugescrow)
 echo "Dry-running signed approval program with signed transaction group..."
 ${goalcli} clerk dryrun -t txn-group-asa-signed.tx --dryrun-dump -o txn-group-asa-signed-dryrun.json
 $sandboxcli copyFrom "txn-group-asa-signed-dryrun.json"
 cd "../" && docker exec -it  algorand-sandbox-algod tealdbg debug ${ESCROW_PROG_SND} -f cdt --listen 0.0.0.0 -d txn-group-asa-signed-dryrun.json
 echo "The Dry run JSON file is running to check Stateful Approval Smart Contract..."
 cd appasa
+;;
+
+autopilot)
+echo "Autopiloting AppASA ..."
+./appasa.sh smarts && ./appasa.sh fund 2000000 && ./appasa.sh link && ./appasa.sh asset auto && ./appasa.sh dryrun
 ;;
 
 axfer)
@@ -325,7 +330,7 @@ echo "--------------------------------------------------             "
 echo "Dry run commands:"
 echo "                "
 echo "./appasa.sh dryrun" 
-echo "Show main account's info" 
+echo "Generate dry run files" 
 echo "                "
 echo "./appasa.sh drapproval"
 echo "Dry run stateful approval program" 
@@ -336,7 +341,7 @@ echo "                "
 ;;
 *)
 echo "Welcome To AppASA demo tool!"
-echo "Create Algorand Standard Assets using linked stateful and stateless smart contracts"
+echo "Create Algorand Standard Assets controlled by linked stateful and stateless smart contracts"
 echo "This repository contains educational (DO NOT USE IN PRODUCTION!) code and content for Algorand Developers Portal publication"
 ;;
 esac

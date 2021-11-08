@@ -1,4 +1,4 @@
-#pragma version 4
+#pragma version 5
 txn GroupIndex
 int 0
 ==
@@ -57,6 +57,10 @@ byte "acc"
 app_global_get
 ==
 assert
+gtxn 1 TypeEnum
+int acfg
+==
+assert
 retsub
 
 
@@ -64,24 +68,18 @@ bacfg:
 callsub bacfgcheck
 byte "iter"
 app_global_get
-int 10
-%
 store 0
-gtxn 1 TypeEnum
-int acfg
-==
 gtxn 1 ConfigAssetName
+log
+byte "an"
 byte "AppASA-"
-byte "0123456789"
 load 0
-dup
 int 1
 +
-substring3
+itob
 concat
-==
-&&
-assert
+
+app_global_put
 byte "iter"
 dup
 app_global_get
@@ -89,7 +87,6 @@ int 1
 +
 app_global_put
 int 1
-&&
 b end
 
 
@@ -111,3 +108,4 @@ b end
 finerr:
 err
 end:
+return

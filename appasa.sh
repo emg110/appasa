@@ -205,7 +205,7 @@ cd appasa
 
 autopilot)
 echo "Autopiloting AppASA ..."
-./appasa.sh smarts && ./appasa.sh fund 2000000 && ./appasa.sh link && ./appasa.sh asset auto && ./appasa.sh dryrun
+./appasa.sh smarts && ./appasa.sh fund 2000000 && ./appasa.sh link && ./appasa.sh asset auto && ./appasa.sh axfer auto && ./appasa.sh dryrun
 ;;
 
 axfer)
